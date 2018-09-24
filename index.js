@@ -9,6 +9,7 @@ const process = require("process")
 const db = new Loki("codes.db")
 const codes = db.addCollection("codes")
 const JWT_SECRET = process.env['JWT_SECRET'] || "hahaha privacy yeah hight :-D BENIS"
+const DEV = process.env['ENV'] !== "prod" || true
 
 module.exports = router()(
   get("/enter/:email", (req, res)=>{
@@ -19,7 +20,11 @@ module.exports = router()(
     email = email.trim().toLowerCase()
     codes.findAndRemove({email})
     codes.insert({email, code, ref, confirmed: false})
-    sendConfirmationMail(email, code)
+    if (DEV) {
+      console.log("Ref code: ", ref)
+    } else {
+      sendConfirmationMail(email, code)
+    }
     console.log(code)
     send(res, 200, ref)
   }),
