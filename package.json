@@ -24,6 +24,6 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "micro-dev": "^3.0.0",
-    "node-fetch": "^2.2.0"
+    "node-fetch": "^2.6.7"
   }
 }
